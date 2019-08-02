@@ -195,85 +195,6 @@ public class MainActivity extends FragmentActivity implements
     protected void onStart() {
         mLogger.Log("onStart");
         super.onStart();
-
-        // Initialize or refresh the app settings.
-        // When app is first launched, mRefreshSettings will always be true.
-        // Each successive time that onStart is called, app is coming back to foreground so check if the
-        // settings need to be refreshed again, as app may have been launched via URI.
-//        if (mRefreshSettings &&
-//            mVidyoConnectorState != VidyoConnectorState.Connected &&
-//            mVidyoConnectorState != VidyoConnectorState.Connecting) {
-//
-//            Intent intent = getIntent();
-//            Uri uri = intent.getData();
-//
-//            // Check if app was launched via URI
-//            if (uri != null) {
-//                String param = uri.getQueryParameter("host");
-//                mHost.setText( param != null ? param : "prod.vidyo.io");
-//
-//                param = uri.getQueryParameter("token");
-//                mToken.setText(param != null ? param : "");
-//
-//                param = uri.getQueryParameter("displayName");
-//                mDisplayName.setText(param != null ? param : "Demo User");
-//
-//                param = uri.getQueryParameter("resourceId");
-//                mResourceId.setText(param != null ? param : "");
-//
-//                mReturnURL = uri.getQueryParameter("returnURL");
-//                mHideConfig = uri.getBooleanQueryParameter("hideConfig", false);
-//                mAutoJoin = uri.getBooleanQueryParameter("autoJoin", false);
-//                mAllowReconnect = uri.getBooleanQueryParameter("allowReconnect", true);
-//                mCameraPrivacy = uri.getBooleanQueryParameter("cameraPrivacy", false);
-//                mMicrophonePrivacy = uri.getBooleanQueryParameter("microphonePrivacy", false);
-//                mEnableDebug = uri.getBooleanQueryParameter("enableDebug", false);
-//                mExperimentalOptions = uri.getQueryParameter("experimentalOptions");
-//
-//                ///////////////////////////////////////////////////////////////////////////////////////
-//                // Note: the following parameters are used to connect to VidyoCloud systems, not Vidyo.io.
-//                mVidyoCloudJoin = (uri.getHost() != null) && uri.getHost().equalsIgnoreCase("join");
-//                if (mVidyoCloudJoin) {
-//                    // Do not display the Vidyo.io form in VidyoCloud mode.
-//                    mHideConfig = true;
-//
-//                    // Populate portal, roomKey, and roomPin
-//                    param = uri.getQueryParameter("portal");
-//                    mPortal = param != null ? param : "";
-//                    param = uri.getQueryParameter("roomKey");
-//                    mRoomKey = param != null ? param : "";
-//                    param = uri.getQueryParameter("roomPin");
-//                    mRoomPin = param != null ? param : "";
-//                }
-//                ///////////////////////////////////////////////////////////////////////////////////////
-//            } else {
-//                // If this app was launched by a different app, then get any parameters; otherwise use default settings.
-//                mHost.setText(intent.hasExtra("host") ? intent.getStringExtra("host") : "prod.vidyo.io");
-//                mToken.setText(intent.hasExtra("token") ? intent.getStringExtra("token") : "cHJvdmlzaW9uAFN0ZXZlQDM3ZjBiZC52aWR5by5pbwA2MzcxODA0MDU5MQAAMzNlZjc3NThkMDZlZjNlYTNjZjVmYzk2OWNlN2RjODkyOGUzNzdhZGVhOWZhOGI3YmY4MDRjNmJjOTA5ZDllMTViZDFjZWFkOWZiYzAzMTljN2EwZDkxM2I3YmNhMmIw");
-//                mDisplayName.setText(intent.hasExtra("displayName") ? intent.getStringExtra("displayName") : "DemoUser");
-//                mResourceId.setText(intent.hasExtra("resourceId") ? intent.getStringExtra("resourceId") : "DemoRoom");
-//                mReturnURL = intent.hasExtra("returnURL") ? intent.getStringExtra("returnURL") : null;
-//                mHideConfig = intent.getBooleanExtra("hideConfig", false);
-//                mAutoJoin = intent.getBooleanExtra("autoJoin", false);
-//                mAllowReconnect = intent.getBooleanExtra("allowReconnect", true);
-//                mCameraPrivacy = intent.getBooleanExtra("cameraPrivacy", false);
-//                mMicrophonePrivacy = intent.getBooleanExtra("microphonePrivacy", false);
-//                mEnableDebug = intent.getBooleanExtra("enableDebug", false);
-//                mExperimentalOptions = intent.hasExtra("experimentalOptions") ? intent.getStringExtra("experimentalOptions") : null;
-//                mVidyoCloudJoin = false;
-//            }
-//
-//            mLogger.Log("onStart: hideConfig = " + mHideConfig + ", autoJoin = " + mAutoJoin + ", allowReconnect = " + mAllowReconnect + ", enableDebug = " + mEnableDebug);
-//
-//            // Hide the form if hideConfig enabled.
-//            if (mHideConfig) {
-//                mControlsLayout.setVisibility(View.GONE);
-//            }
-//
-//            // Apply the app settings.
-//            this.applySettings();
-//        }
-//        mRefreshSettings = false;
     }
 
     @Override
@@ -292,58 +213,17 @@ public class MainActivity extends FragmentActivity implements
     protected void onStop() {
         mLogger.Log("onStop");
         super.onStop();
-
-//        if (mVidyoConnector != null) {
-//            if (mVidyoConnectorState != VidyoConnectorState.Connected &&
-//                mVidyoConnectorState != VidyoConnectorState.Connecting) {
-//                // Not connected/connecting to a resource.
-//                // Release camera, mic, and speaker from this app while backgrounded.
-//                mVidyoConnector.selectLocalCamera(null);
-//                mVidyoConnector.selectLocalMicrophone(null);
-//                mVidyoConnector.selectLocalSpeaker(null);
-//                mDevicesSelected = false;
-//            }
-//            mVidyoConnector.setMode(Connector.ConnectorMode.VIDYO_CONNECTORMODE_Background);
-//        }
     }
 
     @Override
     protected void onRestart() {
         mLogger.Log("onRestart");
-        super.onRestart();
-
-//        if (mVidyoConnector != null) {
-//            mVidyoConnector.setMode(Connector.ConnectorMode.VIDYO_CONNECTORMODE_Foreground);
-//
-//            if (!mDevicesSelected) {
-//                // Devices have been released when backgrounding (in onStop). Re-select them.
-//                mDevicesSelected = true;
-//
-//                // Select the previously selected local camera and default mic/speaker
-//                mVidyoConnector.selectLocalCamera(mLastSelectedCamera);
-//                mVidyoConnector.selectDefaultMicrophone();
-//                mVidyoConnector.selectDefaultSpeaker();
-//
-//                // Reestablish camera and microphone privacy states
-//                mVidyoConnector.setCameraPrivacy(mCameraPrivacy);
-//                mVidyoConnector.setMicrophonePrivacy(mMicrophonePrivacy);
-//            }
-//        }
-    }
+        super.onRestart();    }
 
     @Override
     protected void onDestroy() {
         mLogger.Log("onDestroy");
         super.onDestroy();
-
-        // Release device resources
-//        mLastSelectedCamera = null;
-//        if (mVidyoConnector != null) {
-//            mVidyoConnector.disable();
-//        }
-//
-//        // Connector will be destructed upon garbage collection.
-//        mVidyoConnector = null;
 
         ConnectorPkg.setApplicationUIContext(null);
 
@@ -366,18 +246,6 @@ public class MainActivity extends FragmentActivity implements
     // wait until this is received until calling startVideoViewSizeListener where Connector is initially rendered.
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        mLogger.Log("onRequestPermissionsResult: number of requested permissions = " + permissions.length);
-//
-//        // If the expected request code is received, begin rendering video.
-//        if (requestCode == PERMISSIONS_REQUEST_ALL) {
-//            for (int i = 0; i < permissions.length; ++i)
-//                mLogger.Log("permission: " + permissions[i] + " " + grantResults[i]);
-//
-//            // Begin listening for video view size changes.
-//            this.startVideoViewSizeListener();
-//        } else {
-//            mLogger.Log("ERROR! Unexpected permission requested. Video will not be rendered.");
-//        }
     }
 
     // Listen for UI changes to the view where the video is rendered.
@@ -393,47 +261,11 @@ public class MainActivity extends FragmentActivity implements
                 public void onGlobalLayout() {
                     // Specify the width/height of the view to render to.
                     mLogger.Log("showViewAt: width = " + mVideoFrame.getWidth() + ", height = " + mVideoFrame.getHeight());
-//                    mVidyoConnector.showViewAt(mVideoFrame, 0, 0, mVideoFrame.getWidth(), mVideoFrame.getHeight());
                 }
             });
         } else {
             mLogger.Log("ERROR in startVideoViewSizeListener! Video will not be rendered.");
         }
-    }
-
-    // Apply some of the app settings
-    private void applySettings() {
-//        if (mVidyoConnector != null) {
-//            // If enableDebug is configured then enable debugging
-//            if (mEnableDebug) {
-//                mVidyoConnector.enableDebug(7776, "warning info@VidyoClient info@VidyoConnector");
-//                mClientVersion.setVisibility(View.VISIBLE);
-//            } else {
-//                mVidyoConnector.disableDebug();
-//            }
-//
-//            // If cameraPrivacy is configured then mute the camera
-//            mCameraPrivacyButton.setChecked(false); // reset state
-//            if (mCameraPrivacy) {
-//                mCameraPrivacyButton.performClick();
-//            }
-//
-//            // If microphonePrivacy is configured then mute the microphone
-//            mMicrophonePrivacyButton.setChecked(false); // reset state
-//            if (mMicrophonePrivacy) {
-//                mMicrophonePrivacyButton.performClick();
-//            }
-//
-//            // Set experimental options if any exist
-//            if (mExperimentalOptions != null) {
-//                ConnectorPkg.setExperimentalOptions(mExperimentalOptions);
-//            }
-//
-//            // If configured to auto-join, then simulate a click of the toggle connect button
-//            if (mAutoJoin) {
-//                mToggleConnectButton.performClick();
-//            }
-//        }
     }
 
     // The state of the VidyoConnector connection changed, reconfigure the UI.
@@ -520,98 +352,6 @@ public class MainActivity extends FragmentActivity implements
 
     @Override
     public void onClick(View v) {
-//        if (mVidyoConnector != null) {
-//            switch (v.getId()) {
-//                case R.id.connect:
-//                    // Connect or disconnect.
-//                    this.toggleConnect();
-//                    break;
-//
-//                case R.id.camera_switch:
-//                    // Cycle the camera.
-//                    mVidyoConnector.cycleCamera();
-//                    break;
-//
-//                case R.id.camera_privacy:
-//                    // Toggle the camera privacy.
-//                    mCameraPrivacy = mCameraPrivacyButton.isChecked();
-//                    mVidyoConnector.setCameraPrivacy(mCameraPrivacy);
-//                    break;
-//
-//                case R.id.microphone_privacy:
-//                    // Toggle the microphone privacy.
-//                    mMicrophonePrivacy = mMicrophonePrivacyButton.isChecked();
-//                    mVidyoConnector.setMicrophonePrivacy(mMicrophonePrivacy);
-//                    break;
-//
-//                case R.id.toggle_debug:
-//                    // Toggle debugging.
-//                    mEnableDebug = !mEnableDebug;
-//                    if (mEnableDebug) {
-//                        mVidyoConnector.enableDebug(7776, "warning info@VidyoClient info@VidyoConnector");
-//                        mClientVersion.setVisibility(View.VISIBLE);
-//                    } else {
-//                        mVidyoConnector.disableDebug();
-//                        mClientVersion.setVisibility(View.INVISIBLE);
-//                    }
-//                    break;
-//
-//                default:
-//                    mLogger.Log("onClick: Unexpected click event, id=" + v.getId());
-//                    break;
-//            }
-//        } else {
-//            mLogger.Log("ERROR: not processing click event because Connector is null.");
-//        }
-    }
-
-    // The Connect button was pressed.
-    // If not in a call, attempt to connect to the backend service.
-    // If in a call, disconnect.
-    public void toggleConnect() {
-//        if (mToggleConnectButton.isChecked()) {
-//            // Connect to either a Vidyo.io resource or a VidyoCloud Vidyo room.
-//            if (!mVidyoCloudJoin) {
-//                // Connect to a Vidyo.io resource.
-//
-//                // Abort the Connect call if resource ID is invalid. It cannot contain empty spaces or "@".
-//                String resourceId = mResourceId.getText().toString().trim(); // trim leading and trailing white space
-//                if (resourceId.contains(" ") || resourceId.contains("@")) {
-//                    this.changeState(VidyoConnectorState.FailureInvalidResource);
-//                } else {
-//                    this.changeState(VidyoConnectorState.Connecting);
-//
-//                    if (!mVidyoConnector.connect(
-//                            mHost.getText().toString().trim(),
-//                            mToken.getText().toString().trim(),
-//                            mDisplayName.getText().toString().trim(),
-//                            resourceId,
-//                            this)) {
-//                        // Connect failed.
-//                        this.changeState(VidyoConnectorState.Failure);
-//                    }
-//                }
-//            } else {
-//                // Connect to a VidyoCloud Vidyo system, not Vidyo.io.
-//                this.changeState(VidyoConnectorState.Connecting);
-//
-//                if (!mVidyoConnector.connectToRoomAsGuest(
-//                        mPortal,
-//                        mDisplayName.getText().toString().trim(),
-//                        mRoomKey,
-//                        mRoomPin,
-//                        this)) {
-//                    // Connect failed.
-//                    this.changeState(VidyoConnectorState.Failure);
-//                }
-//            }
-//            mLogger.Log("VidyoConnectorConnect status = " + (mVidyoConnectorState == VidyoConnectorState.Connecting));
-//        } else {
-//            // The user is either connected to a resource or is in the process of connecting to a resource;
-//            // Call VidyoConnectorDisconnect to either disconnect or abort the connection attempt.
-//            this.changeState(VidyoConnectorState.Disconnecting);
-//            mVidyoConnector.disconnect();
-//        }
     }
 
     // Toggle visibility of the toolbar
